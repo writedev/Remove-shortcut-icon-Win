@@ -40,7 +40,7 @@ try {
     Write-Host "Response not recognised. Default path used : $dependancefilePath"
 
 } catch {
-    Write-Error "An error has occurred : $_"s
+    Write-Error "An error has occurred : $($_.s)"
     Read-Host "Press Enter to exit..."
     exit
 }
