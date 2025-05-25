@@ -19,22 +19,14 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     exit
 }
 
-Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
-
 # Définir le chemin de la clé de registre
 $registryPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons"
 
-# Créer la clé de registre si elle n'existe pas
-if (-not (Test-Path -Path $registryPath)) {
-    New-Item -Path $registryPath -Force
+# Créer le dossier s'il n'existe pas
+if (-not (Test-Path $registryPath)) {
+    New-Item -Path $registryPath -Force | Out-Null
 }
 
-# Définir le nom de la valeur et sa donnée
-$valueName = "29"
-$valueData = "MaDonnee"
-
-# Ajouter la valeur à la clé de registre
-New-ItemProperty -Path $registryPath -Name $valueName -Value $valueData -PropertyType String -Force
-
-Read-Host "Press Enter to exit..."
-exit
+# Ajouter une nouvelle valeur (exemple)
+# Remplace "3" et "C:\chemin\vers\ton\icone.ico" selon ton besoin
+New-ItemProperty -Path $registryPath -Name "3" -Value "C:\chemin\vers\ton\icone.ico" -PropertyType String -Force
