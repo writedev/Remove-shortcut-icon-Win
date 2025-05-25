@@ -66,7 +66,7 @@ try {
         New-Item -Path $registryPath -Force | Out-Null
     }
 
-    New-ItemProperty -Path $registryPath -Name "3" -Value $ImgPath -PropertyType String -Force
+    New-ItemProperty -Path $registryPath -Name "29" -Value $ImgPath -PropertyType String -Force
 }catch{
     Write-Error "An error has occurred : $_"s
     Read-Host "Press Enter to exit..."
