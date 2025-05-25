@@ -59,3 +59,16 @@ try {
     exit
 }
 
+try {
+    $registryPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons"
+
+    if (-not (Test-Path $registryPath)) {
+        New-Item -Path $registryPath -Force | Out-Null
+    }
+
+    New-ItemProperty -Path $registryPath -Name "3" -Value $ImgPath -PropertyType String -Force
+}catch{
+    Write-Error "An error has occurred : $_"s
+    Read-Host "Press Enter to exit..."
+    exit
+}
