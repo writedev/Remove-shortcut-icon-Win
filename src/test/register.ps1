@@ -22,7 +22,7 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
 
 # Définir le chemin de la clé de registre
-$registryPath = "Ordinateur\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons"
+$registryPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons"
 
 # Créer la clé de registre si elle n'existe pas
 if (-not (Test-Path -Path $registryPath)) {
