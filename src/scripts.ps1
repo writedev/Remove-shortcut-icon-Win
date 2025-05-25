@@ -25,7 +25,7 @@ try {
         $dialog = New-Object System.Windows.Forms.FolderBrowserDialog
         $dialog.Description = "Choose a folder"
         if ($dialog.ShowDialog() -eq [System.Windows.Forms.DialogResult]::OK) {
-            $dependancefilePath = $dialog.SelectedPath
+            $dependancefilePath = Join-Path $dialog.SelectedPath "monFichier.txt"
         } else {
             Write-Output "No folder selected."
             exit
@@ -34,16 +34,15 @@ try {
         $dependancefilePath = "$env:USERPROFILE\AppData\Roaming\monFichier.txt"
     } else {
         Write-Output "Response not recognised. Default path used."
-        $dependancefilePath = "$env:USERPROFILE\AppData\Roaming\NotArrow"
+        $dependancefilePath = "$env:USERPROFILE\AppData\Roaming\NotArrow\monFichier.txt"
     }
 
-    Write-Host "Response not recognised. Default path used : $dependancefilePath"
-
-} catch {
-    Write-Error "An error has occurred : $($_.s)"
-    Read-Host "Press Enter to exit..."
-    exit
+    Write-Host "Dependencies path selected: $dependancefilePath"
 }
+catch {
+    Write-Error "An error occurred: $_"
+}
+
 
 
 try {
@@ -54,7 +53,7 @@ try {
     Invoke-WebRequest -Uri $imageUrl -OutFile $ImgPath
 
 }catch{
-    Write-Error "An error has occurred : $_"s
+    Write-Error "An error has occurred : $_"
     Read-Host "Press Enter to exit..."
     exit
 }
@@ -69,6 +68,31 @@ try {
     New-ItemProperty -Path $registryPath -Name "29" -Value $ImgPath -PropertyType String -Force
 }catch{
     Write-Error "An error has occurred : $_"s
+    Read-Host "Press Enter to exit..."
+    exit
+}
+
+try {
+    $restartBool = Read-Host "would you like to restart your computer now ? y/n"
+    if ($restartBool -eq "y"){
+        try {
+            Restart-Computer
+        } catch{
+                Write-Error "An error has occurred : $_"
+                Read-Host "Press Enter to exit..."
+                exit
+        }
+    }
+
+    elseif ($restartBool -eq "n") {
+        exit
+    }
+    else{
+        Write-Output "Response not recognised."
+        exit
+    }
+}catch{
+    Write-Error "An error has occurred : $_"
     Read-Host "Press Enter to exit..."
     exit
 }
