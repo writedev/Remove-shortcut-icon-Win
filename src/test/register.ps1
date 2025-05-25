@@ -30,3 +30,6 @@ if (-not (Test-Path $registryPath)) {
 # Ajouter une nouvelle valeur (exemple)
 # Remplace "3" et "C:\chemin\vers\ton\icone.ico" selon ton besoin
 New-ItemProperty -Path $registryPath -Name "3" -Value "C:\chemin\vers\ton\icone.ico" -PropertyType String -Force
+
+Read-Host "Press Enter to exit..."
+exit
