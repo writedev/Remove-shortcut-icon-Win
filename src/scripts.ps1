@@ -18,30 +18,30 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
 }
 
 try {
-    $dependance = Read-Host "Voulez-vous choisir l'emplacement des dépendances ? y/n"
+    $dependance = Read-Host "Do you want to choose the location of the dependencies? y/n"
 
     if ($dependance -eq "y") {
         Add-Type -AssemblyName System.Windows.Forms
         $dialog = New-Object System.Windows.Forms.FolderBrowserDialog
-        $dialog.Description = "Choisissez un dossier"
+        $dialog.Description = "Choose a folder"
         if ($dialog.ShowDialog() -eq [System.Windows.Forms.DialogResult]::OK) {
             $dependancefilePath = $dialog.SelectedPath
         } else {
-            Write-Output "Aucun dossier sélectionné."
+            Write-Output "No folder selected."
             exit
         }
     } elseif ($dependance -eq "n") {
         $dependancefilePath = "$env:USERPROFILE\AppData\Roaming\monFichier.txt"
     } else {
-        Write-Output "Réponse non reconnue. Utilisation du chemin par défaut."
+        Write-Output "Response not recognised. Default path used."
         $dependancefilePath = "$env:USERPROFILE\AppData\Roaming\NotArrow"
     }
 
-    Write-Host "Les dépendances sont sur le chemin : $dependancefilePath"
+    Write-Host "Response not recognised. Default path used : $dependancefilePath"
 
 } catch {
-    Write-Error "Une erreur est survenue : $_"s
-    Read-Host "Appuyez sur Entrée pour quitter..."
+    Write-Error "An error has occurred : $_"s
+    Read-Host "Press Enter to exit..."
     exit
 }
 
@@ -54,8 +54,8 @@ try {
     Invoke-WebRequest -Uri $imageUrl -OutFile $ImgPath
 
 }catch{
-    Write-Error "Une erreur est survenue : $_"s
-    Read-Host "Appuyez sur Entrée pour quitter..."
+    Write-Error "An error has occurred : $_"s
+    Read-Host "Press Enter to exit..."
     exit
 }
 
