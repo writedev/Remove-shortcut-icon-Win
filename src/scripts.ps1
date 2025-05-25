@@ -1,19 +1,19 @@
-# Vérifie si le script est exécuté avec des droits d'administrateur
+# Check if the script is running with administrator privileges
 if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
-    # Crée un nouvel objet StartInfo pour le processus PowerShell
+    # Create a new StartInfo object for the PowerShell process
     $startInfo = New-Object System.Diagnostics.ProcessStartInfo
     $startInfo.FileName = "powershell.exe"
     $startInfo.Arguments = "-NoProfile -ExecutionPolicy Bypass -File `"$($MyInvocation.MyCommand.Path)`""
-    $startInfo.Verb = "runas" # Indique que le script doit être exécuté en tant qu'administrateur
+    $startInfo.Verb = "runas" # Indicates that the script should be run as administrator
 
-    # Lance le processus
+    # Start the process
     try {
         [System.Diagnostics.Process]::Start($startInfo)
     } catch {
         Write-Warning "Elevation of privileges failed. The script must be run as an administrator."
     }
 
-    # Quitte le script actuel
+    # Exit the current script
     exit
 }
 
@@ -46,7 +46,6 @@ catch {
     Write-Error "An error occurred: $_"
 }
 
-
 try {
     $imageUrl = "https://raw.githubusercontent.com/writedev/Remove-shortcut-icon-Win/refs/heads/main/icon/NotArrow.ico"
 
@@ -54,8 +53,8 @@ try {
 
     Invoke-WebRequest -Uri $imageUrl -OutFile $ImgPath
 
-}catch{
-    Write-Error "An error has occurred : $_"
+} catch {
+    Write-Error "An error has occurred: $_"
     Read-Host "Press Enter to exit..."
     exit
 }
@@ -68,33 +67,32 @@ try {
     }
 
     New-ItemProperty -Path $registryPath -Name "29" -Value $ImgPath -PropertyType String -Force
-}catch{
-    Write-Error "An error has occurred : $_"s
+} catch {
+    Write-Error "An error has occurred: $_"
     Read-Host "Press Enter to exit..."
     exit
 }
 
 try {
-    $restartBool = Read-Host "would you like to restart your computer now ? y/n"
-    if ($restartBool -eq "y"){
+    $restartBool = Read-Host "Would you like to restart your computer now? y/n"
+    if ($restartBool -eq "y") {
         try {
             Restart-Computer
-        } catch{
-                Write-Error "An error has occurred : $_"
-                Read-Host "Press Enter to exit..."
-                exit
+        } catch {
+            Write-Error "An error has occurred: $_"
+            Read-Host "Press Enter to exit..."
+            exit
         }
     }
-
     elseif ($restartBool -eq "n") {
         exit
     }
-    else{
+    else {
         Write-Output "Response not recognised."
         exit
     }
-}catch{
-    Write-Error "An error has occurred : $_"
+} catch {
+    Write-Error "An error has occurred: $_"
     Read-Host "Press Enter to exit..."
     exit
 }
