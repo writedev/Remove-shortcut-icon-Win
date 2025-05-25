@@ -38,11 +38,24 @@ try {
     }
 
     Write-Host "Les dépendances sont sur le chemin : $dependancefilePath"
-    Read-Host "Appuyez sur Entrée pour quitter..."
-    exit
 
 } catch {
     Write-Error "Une erreur est survenue : $_"s
     Read-Host "Appuyez sur Entrée pour quitter..."
     exit
 }
+
+
+try {
+    $imageUrl = "https://raw.githubusercontent.com/writedev/Remove-shortcut-icon-Win/refs/heads/main/icon/NotArrow.ico"
+
+    $ImgPath = $dependancefilePath + "\noArrow.ico"
+
+    Invoke-WebRequest -Uri $imageUrl -OutFile $ImgPath
+
+}catch{
+    Write-Error "Une erreur est survenue : $_"s
+    Read-Host "Appuyez sur Entrée pour quitter..."
+    exit
+}
+
