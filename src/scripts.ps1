@@ -25,7 +25,7 @@ try {
         $dialog = New-Object System.Windows.Forms.FolderBrowserDialog
         $dialog.Description = "Choose a folder"
         if ($dialog.ShowDialog() -eq [System.Windows.Forms.DialogResult]::OK) {
-            $dependancefilePath = Join-Path $dialog.SelectedPath "monFichier.txt"
+            $dependancefilePath = Join-Path $dialog.SelectedPath
         } else {
             Write-Output "No folder selected."
             exit
