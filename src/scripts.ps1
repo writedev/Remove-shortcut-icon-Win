@@ -31,10 +31,10 @@ try {
             exit
         }
     } elseif ($dependance -eq "n") {
-        $dependancefilePath = "$env:USERPROFILE\AppData\Roaming\monFichier.txt"
+        $dependancefilePath = "$env:USERPROFILE\AppData\Roaming\"
     } else {
         Write-Output "Response not recognised. Default path used."
-        $dependancefilePath = "$env:USERPROFILE\AppData\Roaming\NotArrow\monFichier.txt"
+        $dependancefilePath = "$env:USERPROFILE\AppData\Roaming\NotArrow\"
     }
 
     Write-Host "Dependencies path selected: $dependancefilePath"
