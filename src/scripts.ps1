@@ -24,17 +24,20 @@ try {
         Add-Type -AssemblyName System.Windows.Forms
         $dialog = New-Object System.Windows.Forms.FolderBrowserDialog
         $dialog.Description = "Choose a folder"
-        if ($dialog.ShowDialog() -eq [System.Windows.Forms.DialogResult]::OK) {
-            $dependancefilePath = Join-Path $dialog.SelectedPath
+
+        if ($dialog.ShowDialog() -eq [System.Windows.Forms.DialogResult]::OK -and $dialog.SelectedPath) {
+            $dependancefilePath = $dialog.SelectedPath
         } else {
             Write-Output "No folder selected."
             exit
         }
-    } elseif ($dependance -eq "n") {
-        $dependancefilePath = "$env:USERPROFILE\AppData\Roaming\"
-    } else {
+    }
+    elseif ($dependance -eq "n") {
+        $dependancefilePath = "$env:USERPROFILE\AppData\Roaming"
+    }
+    else {
         Write-Output "Response not recognised. Default path used."
-        $dependancefilePath = "$env:USERPROFILE\AppData\Roaming\NotArrow\"
+        $dependancefilePath = "$env:USERPROFILE\AppData\Roaming\NotArrow"
     }
 
     Write-Host "Dependencies path selected: $dependancefilePath"
@@ -42,7 +45,6 @@ try {
 catch {
     Write-Error "An error occurred: $_"
 }
-
 
 
 try {
