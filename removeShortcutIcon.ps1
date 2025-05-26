@@ -47,7 +47,7 @@ catch {
 }
 
 try {
-    $imageUrl = "https://raw.githubusercontent.com/writedev/Remove-shortcut-icon-Win/refs/heads/main/icon/NotArrow.ico"
+    $imageUrl = "https://github.com/writedev/Remove-shortcut-icon-Win/blob/main/icon/NotArrow.ico"
 
     $ImgPath = $dependancefilePath + "\noArrow.ico"
 
