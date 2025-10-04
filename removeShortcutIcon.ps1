@@ -17,6 +17,29 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     exit
 }
 
+$dataPath = "$env:USERPROFILE\.rmShortCutIcon\"
+$dependanceFolderPath = "$env:USERPROFILE\.rmShortCutIcon\"
+
+# see if there currently the data folder
+
+try {
+    if (Test-Path $dataPath) {
+        Write-Host "The script is currently installed or was not properly uninstalled."
+        Write-Host "See: https://github.com/writedev/Remove-shortcut-icon-Win#%EF%B8%8F-easy-to-remove"
+        Start-Sleep -Seconds 12
+        exit
+    }
+    else{
+        
+    }
+
+
+}catch{
+    Write-Error "An error occurred: $_"
+    Read-Host "Press Enter to exit..."
+    exit
+}
+
 try {
     $dependance = Read-Host "Do you want to choose the location of the dependencies? y/n"
 
@@ -26,30 +49,38 @@ try {
         $dialog.Description = "Choose a folder"
 
         if ($dialog.ShowDialog() -eq [System.Windows.Forms.DialogResult]::OK -and $dialog.SelectedPath) {
-            $dependancefilePath = $dialog.SelectedPath
+            $dependanceFolderPath = $dialog.SelectedPath
         } else {
             Write-Output "No folder selected."
             exit
         }
     }
     elseif ($dependance -eq "n") {
-        $dependancefilePath = "$env:USERPROFILE\AppData\Roaming"
+        if(-not (Test-Path $dependanceFolderPath)){
+            New-Item -Path $dependanceFolderPath -ItemType Directory
+        }
     }
     else {
         Write-Output "Response not recognised. Default path used."
-        $dependancefilePath = "$env:USERPROFILE\AppData\Roaming\NotArrow"
+        if(-not (Test-Path $dependanceFolderPath)){
+            New-Item -Path $dependanceFolderPath -ItemType Directory
+        }
     }
 
-    Write-Host "Dependencies path selected: $dependancefilePath"
+    Write-Host "Dependencies path selected: $dependanceFolderPath"
 }
 catch {
     Write-Error "An error occurred: $_"
+    Read-Host "Press Enter to exit..."
+    exit
 }
+
+
 
 try {
     $imageUrl = "https://raw.githubusercontent.com/writedev/Remove-shortcut-icon-Win/refs/heads/main/icon/NotArrow.ico"
 
-    $ImgPath = $dependancefilePath + "\noArrow.ico"
+    $ImgPath = $dependanceFolderPath + "\RmShortCutIcon.ico"
 
     Invoke-WebRequest -Uri $imageUrl -OutFile $ImgPath
 
@@ -58,6 +89,22 @@ try {
     Read-Host "Press Enter to exit..."
     exit
 }
+
+try{
+    $data = @{
+        "imagePath" = $ImgPath
+        "Comment_" = "This file only stores the path to the NoArrow icon file for the GitHub script. https://github.com/writedev/Remove-shortcut-icon-Win."
+    }
+    if(-not (Test-Path $dataPath)){
+        New-Item -Path $dataPath -ItemType Directory}
+
+    $data | ConvertTo-Json -Depth 3 | Out-File "$dataPath\data.json" -Encoding UTF8 -Force
+}catch {
+    Write-Error "An error has occurred: $_"
+    Read-Host "Press Enter to exit..."
+    exit
+}
+
 
 try {
     $registryPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons"
