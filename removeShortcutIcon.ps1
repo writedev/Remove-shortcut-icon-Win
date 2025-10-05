@@ -78,7 +78,7 @@ catch {
 
 
 try {
-    $imageUrl = "https://raw.githubusercontent.com/writedev/Remove-shortcut-icon-Win/refs/heads/main/icon/NotArrow.ico"
+    $imageUrl = "https://raw.githubusercontent.com/writedev/Remove-shortcut-icon-Win/refs/heads/main/assets/NotArrow.ico"
 
     $ImgPath = $dependanceFolderPath + "\RmShortCutIcon.ico"
 
