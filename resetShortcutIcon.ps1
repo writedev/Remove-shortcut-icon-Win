@@ -19,7 +19,7 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 Read-Host "Press Enter if you want to reset the Windows shortcut icons"
 
 # Path to the registry key containing the shortcut icons
-$dataPath = "$env:USERPROFILE\.rmShortCutIcon\"
+$dataPath = "C:\Users\Public\.rmShortCutIcon\"
 $registryPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons"
 
 try {

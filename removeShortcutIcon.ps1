@@ -17,8 +17,8 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     exit
 }
 
-$dataPath = "$env:USERPROFILE\.rmShortCutIcon\"
-$dependanceFolderPath = "$env:USERPROFILE\.rmShortCutIcon\"
+$dataPath = "C:\Users\Public\.rmShortCutIcon\"
+$dependanceFolderPath = "C:\Users\Public\.rmShortCutIcon\"
 
 # see if there currently the data folder
 
