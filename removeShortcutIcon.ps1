@@ -1,22 +1,3 @@
-# Check if the script is running with administrator privileges
-if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
-    # Create a new StartInfo object for the PowerShell process
-    $startInfo = New-Object System.Diagnostics.ProcessStartInfo
-    $startInfo.FileName = "powershell.exe"
-    $startInfo.Arguments = "-NoProfile -ExecutionPolicy Bypass -File `"$($MyInvocation.MyCommand.Path)`""
-    $startInfo.Verb = "runas" # Indicates that the script should be run as administrator
-
-    # Start the process
-    try {
-        [System.Diagnostics.Process]::Start($startInfo)
-    } catch {
-        Write-Warning "Elevation of privileges failed. The script must be run as an administrator."
-    }
-
-    # Exit the current script
-    exit
-}
-
 $dataPath = "C:\Users\Public\.rmShortCutIcon\"
 $dependanceFolderPath = "C:\Users\Public\.rmShortCutIcon\"
 

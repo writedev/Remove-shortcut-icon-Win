@@ -1,20 +1,3 @@
-# PowerShell script to reset Windows shortcut icons
-# Requires administrator rights to modify the registry
-
-# Check if the script is running as administrator
-if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-
-    $arguments = "-NoProfile -ExecutionPolicy Bypass -File `"$($MyInvocation.MyCommand.Path)`""
-
-    try {
-        Start-Process -FilePath "powershell.exe" -ArgumentList $arguments -Verb RunAs
-    } catch {
-        Write-Warning "Elevation of privileges failed. The script must be run as an administrator."
-    }
-
-    exit
-}
-
 # Ask the user to confirm the reset of the shortcut icons
 Read-Host "Press Enter if you want to reset the Windows shortcut icons"
 
